@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Pells</h1>
+    </div>
+  </div>
+  {{#if model.artist}}
+    <div class="row">
+      <div class="col-md-2 col-md-offset-1">
+        <h4><a href='#' {{action 'clearOptions'}}><i class="fa fa-chevron-circle-left"></i> everybody</a></h4>
+      </div>
+      <div class="col-md-9 artist-header">
+        <h2><img src="{{model.artist.avatarURL}}" />{{model.artist.name}}</h2>
+      </div>
+    </div>
+  {{/if}}
+  <div class="row">
+    <div class="col-md-8 col-md-offset-1 pell-browser">
+      <ul class="nav nav-tabs">
+        {{#if model.totals.featured}}  
+          <li>{{#link-to 'pells' (query-params filter='featured')}}featured <span class="badge">{{model.totals.featured}}</span>{{/link-to}}</li>
+        {{/if}}
+          <li>{{#link-to 'pells' (query-params filter='-')}}all <span class="badge">{{model.totals.all}}</span>{{/link-to}}</li>
+        {{#if model.totals.spoken_word}}  
+          <li>{{#link-to 'pells' (query-params filter='spoken_word')}}spoken <span class="badge">{{model.totals.spoken_word}}</span>{{/link-to}}</li>
+        {{/if}}
+        {{#if model.totals.rap}}  
+          <li>{{#link-to 'pells' (query-params filter="rap")}}rap <span class="badge">{{model.totals.rap}}</span>{{/link-to}}</li>
+        {{/if}}
+        {{#if model.totals.melody}}  
+          <li>{{#link-to 'pells' (query-params filter="melody")}}melody <span class="badge">{{model.totals.melody}}</span>{{/link-to}}</li>
+        {{/if}}
+      </ul>
+      <div class="tab-content">
+        <ul>
+        {{#each model.playlist as |pell|}}
+          <a class="btn btn-sm btn-info"  href="#" {{action "togglePlay" pell}}>{{#if upload.media.isPlaying }}<i class="fa fa-stop"></i>{{else}}<i class="fa fa-play"></i>{{/if}}</a>
+          <a class="btn btn-sm btn-warning" href="#" {{action "popup" "download" (h upload=pell)}}><i class="fa fa-cloud-download"></i></a>
+          <li> {{{link-to pell.name 'pells.pell' pell.id}}} {{#if pell.bpm}}<span class="bpm">bpm: {{pell.bpm}}</span>{{/if}}
+            {{#unless model.artist}}
+               <span>{{{link-to pell.artist.name 'pells' (query-params artist=pell.artist.id)}}}</span>
+            {{/unless}}
+          </li>
+        {{/each}}
+        </ul>
+      {{paging-widget offset=offset length=model.length limit=limit total=model.total}}
+      </div>
+    </div>{{! /col }}
+    <div class="col-md-2">
+      {{outlet}}
+    </div>
+  </div>{{! /row }}
+</div>{{! /container }}

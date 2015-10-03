@@ -3,6 +3,7 @@
 # compiled output
 /dist
 /tmp
+/fastboot-dist
 
 # dependencies
 /node_modules
@@ -14,4 +15,5 @@
 /coverage/*
 /libpeerconnection.log
 npm-debug.log
+vendor/bower_components_*
 testem.log
