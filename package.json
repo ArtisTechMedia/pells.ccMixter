@@ -1,14 +1,14 @@
 {
   "name": "pells",
-  "version": "0.0.0",
-  "description": "Small description for pells goes here",
+  "version": "0.0.1",
+  "description": "pells.ccmixter.org website",
   "private": true,
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
   "scripts": {
-    "start": "ember server",
+    "start": "ember fastboot --no-build --serve-assets --port 3000",
     "build": "ember build",
     "test": "ember test"
   },
@@ -23,8 +23,10 @@
     "ember-cli": "1.13.1",
     "ember-cli-app-version": "0.4.0",
     "ember-cli-babel": "^5.0.0",
+    "ember-cli-ccm-core": "git://github.com/artistechmedia/ember-cli-ccm-core.git#5b151c6638595a9506d1e6b53d3dbc110fec4eb1",
     "ember-cli-content-security-policy": "0.4.0",
     "ember-cli-dependency-checker": "^1.0.0",
+    "ember-cli-fastboot": "0.0.5",
     "ember-cli-htmlbars": "0.7.9",
     "ember-cli-htmlbars-inline-precompile": "^0.1.1",
     "ember-cli-ic-ajax": "0.2.1",
@@ -32,8 +34,8 @@
     "ember-cli-qunit": "0.3.15",
     "ember-cli-release": "0.2.3",
     "ember-cli-uglify": "^1.0.1",
-    "ember-data": "1.13.5",
     "ember-disable-proxy-controllers": "^1.0.0",
-    "ember-export-application-global": "^1.0.2"
+    "ember-export-application-global": "^1.0.2",
+    "ember-i18n": "4.1.3"
   }
 }
