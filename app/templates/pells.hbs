@@ -1,4 +1,25 @@
-<div class="container">
+<div class="container pells-page">
+  <div class="gear"><button class="btn btn-sm btn-default" {{action "toggleOptions"}}><i class="fa fa-gear"></i></button></div>
+  <article class="container-fluid center-text" id="qop" style="display:none">
+    <form class="form-inline">
+      <div class="form-group">
+          <div class="btn-group">
+            {{link-to 'free'     'pells' (query-params lic='open')   class="btn btn-primary btn-sm"}}
+            {{link-to 'licensed' 'pells' (query-params lic='ccplus') class="btn btn-primary btn-sm"}}
+            {{link-to 'all'      'pells' (query-params lic='all')    class="btn btn-primary btn-sm"}}
+          </div>
+          <a {{action "popup" "license"}}><i class="fa fa-question-circle"></i></a>        
+      </div>
+      <div class="form-group">
+        <label class="btn btn-primary btn-sm">
+          {{input type="checkbox" disabled=loading checked=unmixed }} unmixed
+        </label>
+      </div>
+      <div class="form-group">
+          <a href='#' class="btn btn-sm btn-warning {{if model.optionsAreClean 'disabled'}}" {{action "clearOptions"}}><i class="fa fa-power-off"></i> reset</a>
+      </div>
+    </form>
+  </article>
   <div class="row">
     <div class="col-md-12">
       <h1>Pells</h1>
@@ -16,37 +37,38 @@
   {{/if}}
   <div class="row">
     <div class="col-md-8 col-md-offset-1 pell-browser">
+      {{paging-widget offset=offset length=model.length limit=limit total=model.total}}
       <ul class="nav nav-tabs">
         {{#if model.totals.featured}}  
-          <li>{{#link-to 'pells' (query-params filter='featured')}}featured <span class="badge">{{model.totals.featured}}</span>{{/link-to}}</li>
+          <li>{{#link-to 'pells' (query-params filter='featured' offset=0)}}featured <span class="badge">{{model.totals.featured}}</span>{{/link-to}}</li>
         {{/if}}
-          <li>{{#link-to 'pells' (query-params filter='-')}}all <span class="badge">{{model.totals.all}}</span>{{/link-to}}</li>
+          <li>{{#link-to 'pells' (query-params filter='all' offset=0)}}all <span class="badge">{{model.totals.all}}</span>{{/link-to}}</li>
         {{#if model.totals.spoken_word}}  
-          <li>{{#link-to 'pells' (query-params filter='spoken_word')}}spoken <span class="badge">{{model.totals.spoken_word}}</span>{{/link-to}}</li>
+          <li>{{#link-to 'pells' (query-params filter='spoken_word' offset=0)}}spoken <span class="badge">{{model.totals.spoken_word}}</span>{{/link-to}}</li>
         {{/if}}
         {{#if model.totals.rap}}  
-          <li>{{#link-to 'pells' (query-params filter="rap")}}rap <span class="badge">{{model.totals.rap}}</span>{{/link-to}}</li>
+          <li>{{#link-to 'pells' (query-params filter="rap" offset=0)}}rap <span class="badge">{{model.totals.rap}}</span>{{/link-to}}</li>
         {{/if}}
         {{#if model.totals.melody}}  
-          <li>{{#link-to 'pells' (query-params filter="melody")}}melody <span class="badge">{{model.totals.melody}}</span>{{/link-to}}</li>
+          <li>{{#link-to 'pells' (query-params filter="melody" offset=0)}}melody <span class="badge">{{model.totals.melody}}</span>{{/link-to}}</li>
         {{/if}}
       </ul>
+
       <div class="tab-content">
         <ul>
         {{#each model.playlist as |pell|}}
-          <a class="btn btn-sm btn-info"  href="#" {{action "togglePlay" pell}}>{{#if upload.media.isPlaying }}<i class="fa fa-stop"></i>{{else}}<i class="fa fa-play"></i>{{/if}}</a>
-          <a class="btn btn-sm btn-warning" href="#" {{action "popup" "download" (h upload=pell)}}><i class="fa fa-cloud-download"></i></a>
-          <li> {{{link-to pell.name 'pells.pell' pell.id}}} {{#if pell.bpm}}<span class="bpm">bpm: {{pell.bpm}}</span>{{/if}}
+          <li {{action "selectLine" pell}} id="line_{{pell.id}}"> 
+            {{#if pell.bpm}}<span class="bpm">bpm: {{pell.bpm}}</span>{{/if}}
+            <span class="title">{{{pell.name}}}</span>
             {{#unless model.artist}}
                <span>{{{link-to pell.artist.name 'pells' (query-params artist=pell.artist.id)}}}</span>
             {{/unless}}
           </li>
         {{/each}}
         </ul>
-      {{paging-widget offset=offset length=model.length limit=limit total=model.total}}
       </div>
     </div>{{! /col }}
-    <div class="col-md-2">
+    <div class="col-md-3 pell-detail">
       {{outlet}}
     </div>
   </div>{{! /row }}

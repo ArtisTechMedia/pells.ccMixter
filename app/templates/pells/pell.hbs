@@ -1,2 +1,10 @@
-<h2>{{model.name}}</h2>
 <h3><img src="{{model.artist.avatarUrl}}" />{{model.artist.name}}</h3>
+
+<ul>
+{{#each model.files as |file|}}
+  <li><button class="btn btn-sm btn-success" {{action "popup" "download" model file}}><i class="fa fa-cloud-download"></i> {{file.extension}}</button> {{file.nicName}}</li>
+{{/each}}
+</ul>
+
+<a class="btn btn-success" href="{{model.url}}" target="_blank"><i class="fa fa-external-link"></i> @ccMixter</a>
+

@@ -47,41 +47,11 @@
   </div>{{! -- collapse -- }}
 </div>{{! container-fluid }}
 
-<article class="container-fluid center-text" id="qop">
-  <form class="form-inline">
-      <div class="form-group sliding_out">
-          <div class="btn-group">
-            {{link-to 'free'     'pells' (query-params lic='open')   class="btn btn-primary btn-sm"}}
-            {{link-to 'licensed' 'pells' (query-params lic='ccplus') class="btn btn-primary btn-sm"}}
-            {{link-to 'all'      'pells' (query-params lic='all')    class="btn btn-primary btn-sm"}}
-          </div>
-          <a {{action "popup" "license"}}><i class="fa fa-question-circle"></i></a>        
-      </div>
-    <div class="form-group">
-      <div class="btn-group">
-        <a class="btn dropdown-toggle btn-primary {{if loading 'disabled'}}" data-toggle="dropdown" href="#">
-          <span class="light-text">limit</span> <strong>{{limit}}</strong>
-          <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-        </ul>
-      </div>
-    </div>        
-    <div class="form-group">
-      <label class="btn btn-primary btn-sm">
-        {{input type="checkbox" disabled=loading checked=model.recent }} recent
-      </label>
-    </div>
-    <div class="form-group">
-        <a href='#' class="btn btn-sm btn-warning {{if model.optionsAreClean 'disabled'}}" {{action "clearOptions"}}><i class="fa fa-power-off"></i> reset</a>
-    </div>
-  </form>
-</article>
 </nav>  
 <div class="outlet-wrap {{if loading 'loading-screen fade'}}">
   {{outlet}}
 </div>
 {{#if audioPlayer.nowPlaying}} 
-{{/if}}
   {{audio-player userAction="playlistActions"}}
+{{/if}}
 

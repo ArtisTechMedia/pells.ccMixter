@@ -7,8 +7,7 @@ export default Ember.Controller.extend({
     "bpm",
     "lic",
     "limit",
-    "remixed",
-    "recent",
+    "unmixed",
     "offset",
   ],
 
@@ -16,8 +15,7 @@ export default Ember.Controller.extend({
   filter: 'featured',
   bpm: '-',
   lic: 'all',
-  limit: 10,
-  remixed: false,
-  recent: false,
+  limit: 8,
+  unmixed: false,
   offset: 0,
 });

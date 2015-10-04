@@ -1,37 +1,31 @@
 import Ember from 'ember';
 
-function jqerr(e) {
-  Ember.debug(e);
+function jqerr(e,text) {
+  Ember.debug(text);
 }
 
 export default Ember.Route.extend({
 
   audioPlayer: Ember.inject.service(),
 
-  defaultModel: {
-    user_id: '-',
-    filter: 'featured',
-    bpm: '-',
-    lic: 'all',
-    limit: 10,
-    remixed: '-'
-  },
-
   watchPlayer: function() {
-    var nowPlaying = this.get('audioPlayer.nowPlaying');
-    if( nowPlaying ) {
+    Ember.$('.waveimage.bar').fadeOut();
+    var imageURL = this.get('audioPlayer.nowPlaying.wavImageURL');
+    if( imageURL ) {
+      // todo: export full xml+svg and put in <img> tag
       var args = {
-          url: 'http://ccmixter.org/waveimage/' + nowPlaying.id + '/0',
+          url: imageURL,
           method: 'GET',
           dataType: 'text',
           error: jqerr,
         };      
-
       Ember.RSVP.resolve(Ember.$.ajax(args)).then( svg => {
-        Ember.$('.waveimage.bar').html(svg);
+        Ember.$('.waveimage.bar').html(svg).fadeIn();
       });
     }
   }.observes('audioPlayer.nowPlaying'),
+
+  _selected: 0,
 
   actions: {
     
@@ -43,16 +37,25 @@ export default Ember.Route.extend({
       this.transitionTo('/pells', { queryParams: { } } );
     },
 
-    togglePlay: function(pell) {
-      this.get('audioPlayer').togglePlay(pell);
-    },
-
     playlistActions: function( actionType, model ) {
       if( actionType === 'title' ) {
         this.transitionTo( 'pells.pell', model.id );
       } else if( actionType === 'artist' ) {
         this.transitionTo( 'pells', { queryParams: { artist: model.artist.id } } );
       }
-    }
+    },
+
+    selectLine: function(pell) {
+      if( this._selected ) {
+        Ember.$('#line_' + this._selected).removeClass('selected');
+      }
+      Ember.$('#line_' + pell.id).addClass('selected');
+      this.transitionTo( 'pells.pell', pell.id );
+      try {
+        this.get('audioPlayer').togglePlay(pell);
+      } catch (e) {
+        Ember.debug(e);
+      }
+    },
   }
 });

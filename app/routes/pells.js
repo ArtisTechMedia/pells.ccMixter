@@ -16,10 +16,11 @@ var BasePellRoute = Ember.Route.extend({
   _keys_count: 0,
 
   getTotals: function(params) {
+
     var p = { };
     Ember.merge( p, params );
 
-    delete p['reqtags'];
+    delete p['reqtags']; // fill this in below
 
     var _key = this._stringized(p);
 
@@ -60,9 +61,8 @@ export default BasePellRoute.extend({
     filter:  { refreshModel: true },
     bpm:     { refreshModel: true },
     lic:     { refreshModel: true },
+    unmixed: { refreshModel: true },
     limit:   { refreshModel: true },
-    remixed: { refreshModel: true },
-    recent:  { refreshModel: true },
     offset:  { refreshModel: true },
   },
 
@@ -71,14 +71,12 @@ export default BasePellRoute.extend({
     filter:  'featured',
     bpm:     '-',
     lic:     'all',
-    limit:   10,
-    remixed: '-',
-    recent:  false,
+    unmixed: false,
+    limit:   8,
     offset:  0,
   },
 
-
-  model: function(_params,transition) {
+  model: function( _params, transition ) {
 
     var params = {};
 
@@ -89,39 +87,27 @@ export default BasePellRoute.extend({
       lic: params.lic,
       limit: params.limit,
       offset: params.offset,
+      sort: 'date',
+      ord: 'DESC'
     };
 
-    /** tags **/
-
-    if( params.bpm !== '-' && params.bpm.match(/^bpm_[0-9]{3}_[0-9]{3}$/) ) {
+    if( params.bpm && params.bpm.match(/^bpm_[0-9]{3}_[0-9]{3}$/) ) {
       args.tags = params.bpm;
     }
     
-    if( params.filter !== '-' && this.filters.contains(params.filter) ) {
+    if( this.filters.contains(params.filter) ) {
       args.reqtags = params.filter;
     }
 
-    /** remixed **/
-
-    if( params.remixed !== '-' ) {
+    if( params.unmixed  ) {
       args.remixmax = '0';
     }
-
-    /** recent **/
-
-    if( params.recent ) {
-      args.sinced = '3 months ago';
-    }
-
-    /** artist **/
 
     var artist = null;
     if( params.artist !== '-' ) {
       args.u = params.artist;
       artist = this.store.findUser(params.artist);
     }
-
-    /** query **/
 
     var hash = {
       artist:   artist,
