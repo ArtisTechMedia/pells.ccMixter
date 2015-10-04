@@ -11,14 +11,7 @@
   </div>
 
   <div class="collapse navbar-collapse" id="dig-collapse">
-    <ul class="nav navbar-nav">
-      <li>
-        {{link-to 'browse pells' 'pells'}}
-      </li>
-      <li>
-        {{#if loading}}<a href='#'><i style="color:white" class="fa fa-spinner fa-pulse"></i></a>{{/if}}
-      </li>    
-    </ul>{{! main navbar }}
+
     <div role="search" class="navbar-form navbar-right">
       <div class="form-group input-group input-group-small">
        <div class="input-group-btn">
@@ -38,10 +31,10 @@
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li>
-        {{link-to 'about licenses' 'licenses'}}
-      </li>
+        {{#if loading}}<a href='#'><i style="color:white" class="fa fa-spinner fa-pulse"></i></a>{{/if}}
+      </li>    
       <li>
-        <a href="#" {{action 'goToAnchor' 'index' 'howitworks'}}>how it works</a>
+        {{link-to 'about licenses' 'licenses'}}
       </li>
     </ul>    
   </div>{{! -- collapse -- }}
@@ -51,6 +44,9 @@
 <div class="outlet-wrap {{if loading 'loading-screen fade'}}">
   {{outlet}}
 </div>
+<div class="footer">
+</div>
+{{outlet "modal"}}
 {{#if audioPlayer.nowPlaying}} 
   {{audio-player userAction="playlistActions"}}
 {{/if}}

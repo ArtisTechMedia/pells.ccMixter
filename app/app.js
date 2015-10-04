@@ -7,6 +7,8 @@ var App;
 
 Ember.MODEL_FACTORY_INJECTIONS = true;
 
+Ember.isFastBoot = function() { return typeof FastBoot !== 'undefined'; };
+
 App = Ember.Application.extend({
   modulePrefix: config.modulePrefix,
   podModulePrefix: config.podModulePrefix,

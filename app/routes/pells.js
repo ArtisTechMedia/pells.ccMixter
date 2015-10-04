@@ -55,7 +55,7 @@ var BasePellRoute = Ember.Route.extend({
 export default BasePellRoute.extend({
 
   audioPlayer: Ember.inject.service(),
-  
+
   queryParams: { 
     artist:  { refreshModel: true },
     filter:  { refreshModel: true },

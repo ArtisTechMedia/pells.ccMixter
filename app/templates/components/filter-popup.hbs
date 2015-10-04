@@ -1,0 +1,47 @@
+{{#modal-popup showing=true title='Search Options' action=actionName}}
+<form class="form-horizontal">
+  <fieldset>
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="lic">License</label>
+      <div class="col-md-4">
+        <select id="lic" {{action 'licChange' on='change'}} class="form-control">
+          <option>All Licenses</option>
+          <option>Free for Commercial Use</option>
+          <option>Royalty Free License</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="unmixed">Hide remixed pells</label>
+      <div class="col-md-4">
+        <div class="checkbox">
+          <label for="unmixed">
+            {{input type="checkbox" checked=unmixed}}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="bpm">BPM</label>
+      <div class="col-md-7">
+        <span class="bpm-display">     
+            {{bpmText}}
+        </span>
+        <div class="slider-container">
+          {{range-slider 
+                 start=bpmValue
+                 step=5
+                 min=60
+                 max=130
+                 connect="lower"
+                 slide="slide"
+          }}
+        </div>        
+      </div>
+    </div>
+
+  </fieldset>
+</form>
+{{/modal-popup}}

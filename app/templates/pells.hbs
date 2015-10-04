@@ -1,25 +1,5 @@
 <div class="container pells-page">
-  <div class="gear"><button class="btn btn-sm btn-default" {{action "toggleOptions"}}><i class="fa fa-gear"></i></button></div>
-  <article class="container-fluid center-text" id="qop" style="display:none">
-    <form class="form-inline">
-      <div class="form-group">
-          <div class="btn-group">
-            {{link-to 'free'     'pells' (query-params lic='open')   class="btn btn-primary btn-sm"}}
-            {{link-to 'licensed' 'pells' (query-params lic='ccplus') class="btn btn-primary btn-sm"}}
-            {{link-to 'all'      'pells' (query-params lic='all')    class="btn btn-primary btn-sm"}}
-          </div>
-          <a {{action "popup" "license"}}><i class="fa fa-question-circle"></i></a>        
-      </div>
-      <div class="form-group">
-        <label class="btn btn-primary btn-sm">
-          {{input type="checkbox" disabled=loading checked=unmixed }} unmixed
-        </label>
-      </div>
-      <div class="form-group">
-          <a href='#' class="btn btn-sm btn-warning {{if model.optionsAreClean 'disabled'}}" {{action "clearOptions"}}><i class="fa fa-power-off"></i> reset</a>
-      </div>
-    </form>
-  </article>
+  <div class="gear"><button class="btn btn-lg btn-info" {{action "popup" "filter"}}><i class="fa fa-gear"></i> search options</button></div>
   <div class="row">
     <div class="col-md-12">
       <h1>Pells</h1>

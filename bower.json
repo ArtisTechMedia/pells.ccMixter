@@ -13,6 +13,7 @@
     "qunit": "~1.17.1",
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.4.0",
-    "ember-cli-soundmanager-shim": "~0.0.1"
+    "ember-cli-soundmanager-shim": "~0.0.1",
+    "nouislider": "^8.0.1"
   }
 }

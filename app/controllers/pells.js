@@ -18,4 +18,5 @@ export default Ember.Controller.extend({
   limit: 8,
   unmixed: false,
   offset: 0,
-});
+
+ });
